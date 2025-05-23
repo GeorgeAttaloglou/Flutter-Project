@@ -1,44 +1,47 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'movie.dart';
+part of 'recipe.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class MovieAdapter extends TypeAdapter<Movie> {
+class RecipeAdapter extends TypeAdapter<Recipe> {
   @override
   final int typeId = 0;
 
   @override
-  Movie read(BinaryReader reader) {
+  Recipe read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Movie(
-      movieTitle: fields[0] as String,
-      releaseYear: fields[1] as int,
-      actor1: fields[2] as String,
-      actor2: fields[3] as String,
-      actor3: fields[4] as String,
+    return Recipe(
+      title: fields[0] as String,
+      description: fields[1] as String,
+      prepTime: fields[2] as int,
+      difficulty: fields[3] as String,
+      imagePath: fields[4] as String,
+      rating: fields[5] as int,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Movie obj) {
+  void write(BinaryWriter writer, Recipe obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.movieTitle)
+      ..write(obj.title)
       ..writeByte(1)
-      ..write(obj.releaseYear)
+      ..write(obj.description)
       ..writeByte(2)
-      ..write(obj.actor1)
+      ..write(obj.prepTime)
       ..writeByte(3)
-      ..write(obj.actor2)
+      ..write(obj.difficulty)
       ..writeByte(4)
-      ..write(obj.actor3);
+      ..write(obj.imagePath)
+      ..writeByte(5)
+      ..write(obj.rating);
   }
 
   @override
@@ -47,7 +50,7 @@ class MovieAdapter extends TypeAdapter<Movie> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is MovieAdapter &&
+      other is RecipeAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
