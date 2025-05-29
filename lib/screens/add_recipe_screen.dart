@@ -1,9 +1,21 @@
+// add_recipe_screen.dart
+
+// ------------------------------
+// Dart & Flutter Imports
+// ------------------------------
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+
+// ------------------------------
+// Internal Imports
+// ------------------------------
 import '../models/recipe.dart';
 
+// ------------------------------
+// Add Recipe Screen
+// ------------------------------
 class AddRecipeScreen extends StatefulWidget {
   const AddRecipeScreen({super.key});
 
@@ -12,6 +24,9 @@ class AddRecipeScreen extends StatefulWidget {
 }
 
 class _AddRecipeScreenState extends State<AddRecipeScreen> {
+  // ------------------------------
+  // Form State & Controllers
+  // ------------------------------
   final _formKey = GlobalKey<FormState>();
   final _titleCtrl = TextEditingController();
   final _descCtrl = TextEditingController();
@@ -21,6 +36,9 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   int _rating = 0;
   File? _imageFile;
 
+  // ------------------------------
+  // Image Picker
+  // ------------------------------
   Future<void> _pickImage() async {
     final picker = ImagePicker();
     final picked = await picker.pickImage(source: ImageSource.gallery);
@@ -29,6 +47,9 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     }
   }
 
+  // ------------------------------
+  // Save Handler
+  // ------------------------------
   void _saveRecipe() {
     if (!_formKey.currentState!.validate() || _imageFile == null) return;
 
@@ -53,6 +74,9 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     super.dispose();
   }
 
+  // ------------------------------
+  // UI
+  // ------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,9 +92,8 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                 TextFormField(
                   controller: _titleCtrl,
                   decoration: const InputDecoration(labelText: 'Τίτλος'),
-                  validator:
-                      (val) =>
-                          val == null || val.isEmpty ? 'Υποχρεωτικό' : null,
+                  validator: (val) =>
+                      val == null || val.isEmpty ? 'Υποχρεωτικό' : null,
                 ),
                 TextFormField(
                   controller: _descCtrl,
@@ -88,12 +111,11 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                 DropdownButtonFormField(
                   value: _difficulty,
                   decoration: const InputDecoration(labelText: 'Δυσκολία'),
-                  items:
-                      const ["Easy", "Medium", "Hard"]
-                          .map(
-                            (d) => DropdownMenuItem(value: d, child: Text(d)),
-                          )
-                          .toList(),
+                  items: const ["Easy", "Medium", "Hard"]
+                      .map(
+                        (d) => DropdownMenuItem(value: d, child: Text(d)),
+                      )
+                      .toList(),
                   onChanged: (val) => setState(() => _difficulty = val!),
                 ),
                 const SizedBox(height: 10),

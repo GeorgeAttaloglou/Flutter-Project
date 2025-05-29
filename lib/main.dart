@@ -1,23 +1,44 @@
+// main.dart
+
+// ------------------------------
+// Flutter & Package Imports
+// ------------------------------
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+// ------------------------------
+// Internal Imports
+// ------------------------------
 import 'models/recipe.dart';
 import 'screens/home_screen.dart';
 
+// ------------------------------
+// Theme Notifier (for runtime theme switching)
+// ------------------------------
 final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.system);
 
+// ------------------------------
+// App Entry Point
+// ------------------------------
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Hive initialization & adapters
   await Hive.initFlutter();
   Hive.registerAdapter(RecipeAdapter());
   await Hive.openBox<Recipe>('recipes');
-  final settingsBox = await Hive.openBox('settings');
 
+  // Load saved theme setting
+  final settingsBox = await Hive.openBox('settings');
   final storedTheme = settingsBox.get('themeMode', defaultValue: 'system');
   themeNotifier.value = _getThemeModeFromString(storedTheme);
 
   runApp(const MyApp());
 }
 
+// ------------------------------
+// Theme Parsing Utility
+// ------------------------------
 ThemeMode _getThemeModeFromString(String value) {
   switch (value) {
     case 'light':
@@ -29,6 +50,9 @@ ThemeMode _getThemeModeFromString(String value) {
   }
 }
 
+// ------------------------------
+// Main App Widget
+// ------------------------------
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

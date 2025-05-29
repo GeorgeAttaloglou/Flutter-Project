@@ -1,8 +1,19 @@
+// recipe_details_screen.dart
+
+// ------------------------------
+// Dart & Flutter Imports
+// ------------------------------
 import 'dart:io';
 import 'package:flutter/material.dart';
 
+// ------------------------------
+// Internal Imports
+// ------------------------------
 import '../models/recipe.dart';
 
+// ------------------------------
+// Recipe Detail Screen
+// ------------------------------
 class RecipeDetailScreen extends StatefulWidget {
   final Recipe recipe;
 
@@ -21,12 +32,18 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     _currentRating = widget.recipe.rating;
   }
 
+  // ------------------------------
+  // Rating Update Handler
+  // ------------------------------
   void _updateRating(int newRating) {
     setState(() => _currentRating = newRating);
     widget.recipe.rating = newRating;
     widget.recipe.save();
   }
 
+  // ------------------------------
+  // UI
+  // ------------------------------
   @override
   Widget build(BuildContext context) {
     final recipe = widget.recipe;
