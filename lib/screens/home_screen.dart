@@ -1,13 +1,24 @@
+// home_screen.dart
+
+// ------------------------------
+// Flutter & Package Imports
+// ------------------------------
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+// ------------------------------
+// Internal Imports
+// ------------------------------
 import '../main.dart';
 import '../models/recipe.dart';
 import '../widgets/recipe_card.dart';
 import 'add_recipe_screen.dart';
 import 'recipe_details_screen.dart';
 
+// ------------------------------
+// Home Screen
+// ------------------------------
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -25,6 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
     _recipeBox = Hive.box<Recipe>('recipes');
   }
 
+  // ------------------------------
+  // Handlers
+  // ------------------------------
   void _deleteRecipe(dynamic key) => _recipeBox.delete(key);
 
   void _openRecipeDetail(Recipe recipe) {
@@ -47,6 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
     settingsBox.put('themeMode', _getStringFromThemeMode(mode));
   }
 
+  // ------------------------------
+  // Sorting Utility
+  // ------------------------------
   List<Recipe> _sortRecipes(List<Recipe> recipes) {
     switch (_sortBy) {
       case 'rating':
@@ -67,6 +84,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return recipes;
   }
 
+  // ------------------------------
+  // UI
+  // ------------------------------
   @override
   Widget build(BuildContext context) {
     final currentTheme = themeNotifier.value;
@@ -77,40 +97,37 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           PopupMenuButton<String>(
             onSelected: (value) => setState(() => _sortBy = value),
-            itemBuilder:
-                (_) => const [
-                  PopupMenuItem(
-                    value: 'default',
-                    child: Text('Χωρίς ταξινόμηση'),
-                  ),
-                  PopupMenuItem(value: 'rating', child: Text('Βαθμολογία')),
-                  PopupMenuItem(value: 'prepTime', child: Text('Χρόνος')),
-                  PopupMenuItem(value: 'difficulty', child: Text('Δυσκολία')),
-                ],
+            itemBuilder: (_) => const [
+              PopupMenuItem(
+                value: 'default',
+                child: Text('Χωρίς ταξινόμηση'),
+              ),
+              PopupMenuItem(value: 'rating', child: Text('Βαθμολογία')),
+              PopupMenuItem(value: 'prepTime', child: Text('Χρόνος')),
+              PopupMenuItem(value: 'difficulty', child: Text('Δυσκολία')),
+            ],
           ),
           PopupMenuButton<ThemeMode>(
             icon: const Icon(Icons.color_lens),
             onSelected: _changeTheme,
-            itemBuilder:
-                (_) => [
-                  for (var mode in ThemeMode.values)
-                    PopupMenuItem(
-                      value: mode,
-                      child: Text(
-                        mode == ThemeMode.light
-                            ? '☀️ Φωτεινό'
-                            : mode == ThemeMode.dark
+            itemBuilder: (_) => [
+              for (var mode in ThemeMode.values)
+                PopupMenuItem(
+                  value: mode,
+                  child: Text(
+                    mode == ThemeMode.light
+                        ? '☀️ Φωτεινό'
+                        : mode == ThemeMode.dark
                             ? '🌙 Σκοτεινό'
                             : '⚙️ Σύστημα',
-                        style: TextStyle(
-                          fontWeight:
-                              currentTheme == mode
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                        ),
-                      ),
+                    style: TextStyle(
+                      fontWeight: currentTheme == mode
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                     ),
-                ],
+                  ),
+                ),
+            ],
           ),
         ],
       ),
@@ -154,6 +171,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+// ------------------------------
+// Theme String Utility
+// ------------------------------
 String _getStringFromThemeMode(ThemeMode mode) {
   switch (mode) {
     case ThemeMode.light:

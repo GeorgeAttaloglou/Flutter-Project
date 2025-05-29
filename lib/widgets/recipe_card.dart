@@ -1,7 +1,19 @@
+// recipe_card.dart
+
+// ------------------------------
+// Dart & Flutter Imports
+// ------------------------------
 import 'package:flutter/material.dart';
-import '../models/recipe.dart';
 import 'dart:io';
 
+// ------------------------------
+// Internal Imports
+// ------------------------------
+import '../models/recipe.dart';
+
+// ------------------------------
+// Recipe Card Widget
+// ------------------------------
 class RecipeCard extends StatelessWidget {
   final Recipe recipe;
   final VoidCallback onTap;
@@ -16,7 +28,9 @@ class RecipeCard extends StatelessWidget {
         onTap: onTap,
         child: Row(
           children: [
+            // ------------------------------
             // Εικόνα
+            // ------------------------------
             Container(
               width: 100,
               height: 100,
@@ -25,14 +39,15 @@ class RecipeCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 image: DecorationImage(
                   image: FileImage(
-                    // Εδώ θα φορτώσουμε την τοπική εικόνα από path
                     File(recipe.imagePath),
                   ),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
+            // ------------------------------
             // Πληροφορίες
+            // ------------------------------
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -54,10 +69,9 @@ class RecipeCard extends StatelessWidget {
                           index < recipe.rating
                               ? Icons.star
                               : Icons.star_border,
-                          color:
-                              index < recipe.rating
-                                  ? Colors.amber
-                                  : Colors.grey,
+                          color: index < recipe.rating
+                              ? Colors.amber
+                              : Colors.grey,
                           size: 18,
                         );
                       }),
