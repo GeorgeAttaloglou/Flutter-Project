@@ -89,45 +89,40 @@ class _HomeScreenState extends State<HomeScreen> {
   // ------------------------------
   @override
   Widget build(BuildContext context) {
-    final currentTheme = themeNotifier.value;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Συνταγές'),
         actions: [
           PopupMenuButton<String>(
             onSelected: (value) => setState(() => _sortBy = value),
-            itemBuilder: (_) => const [
-              PopupMenuItem(
-                value: 'default',
-                child: Text('Χωρίς ταξινόμηση'),
-              ),
-              PopupMenuItem(value: 'rating', child: Text('Βαθμολογία')),
-              PopupMenuItem(value: 'prepTime', child: Text('Χρόνος')),
-              PopupMenuItem(value: 'difficulty', child: Text('Δυσκολία')),
-            ],
+            itemBuilder:
+                (_) => const [
+                  PopupMenuItem(
+                    value: 'default',
+                    child: Text('Χωρίς ταξινόμηση'),
+                  ),
+                  PopupMenuItem(value: 'rating', child: Text('Βαθμολογία')),
+                  PopupMenuItem(value: 'prepTime', child: Text('Χρόνος')),
+                  PopupMenuItem(value: 'difficulty', child: Text('Δυσκολία')),
+                ],
           ),
           PopupMenuButton<ThemeMode>(
             icon: const Icon(Icons.color_lens),
             onSelected: _changeTheme,
-            itemBuilder: (_) => [
-              for (var mode in ThemeMode.values)
-                PopupMenuItem(
-                  value: mode,
-                  child: Text(
-                    mode == ThemeMode.light
-                        ? '☀️ Φωτεινό'
-                        : mode == ThemeMode.dark
+            itemBuilder:
+                (_) => [
+                  for (var mode in ThemeMode.values)
+                    PopupMenuItem(
+                      value: mode,
+                      child: Text(
+                        mode == ThemeMode.light
+                            ? '☀️ Φωτεινό'
+                            : mode == ThemeMode.dark
                             ? '🌙 Σκοτεινό'
                             : '⚙️ Σύστημα',
-                    style: TextStyle(
-                      fontWeight: currentTheme == mode
-                          ? FontWeight.bold
-                          : FontWeight.normal,
+                      ),
                     ),
-                  ),
-                ),
-            ],
+                ],
           ),
         ],
       ),

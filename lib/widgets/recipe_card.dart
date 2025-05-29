@@ -38,9 +38,7 @@ class RecipeCard extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 image: DecorationImage(
-                  image: FileImage(
-                    File(recipe.imagePath),
-                  ),
+                  image: FileImage(File(recipe.imagePath)),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -61,6 +59,12 @@ class RecipeCard extends StatelessWidget {
                       recipe.title,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
+                    Text(
+                      "Χρόνος προετιμασίας: ${recipe.prepTime.toString()} λεπτά",
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
+                    ),
                     Text("Δυσκολία: ${recipe.difficulty}"),
                     const SizedBox(height: 4),
                     Row(
@@ -69,9 +73,10 @@ class RecipeCard extends StatelessWidget {
                           index < recipe.rating
                               ? Icons.star
                               : Icons.star_border,
-                          color: index < recipe.rating
-                              ? Colors.amber
-                              : Colors.grey,
+                          color:
+                              index < recipe.rating
+                                  ? Colors.amber
+                                  : Colors.grey,
                           size: 18,
                         );
                       }),

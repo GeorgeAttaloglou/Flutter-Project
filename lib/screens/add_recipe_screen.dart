@@ -92,13 +92,15 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                 TextFormField(
                   controller: _titleCtrl,
                   decoration: const InputDecoration(labelText: 'Τίτλος'),
-                  validator: (val) =>
-                      val == null || val.isEmpty ? 'Υποχρεωτικό' : null,
+                  validator:
+                      (val) =>
+                          val == null || val.isEmpty ? 'Υποχρεωτικό' : null,
                 ),
                 TextFormField(
                   controller: _descCtrl,
                   decoration: const InputDecoration(labelText: 'Περιγραφή'),
                   maxLines: 3,
+                  style: const TextStyle(fontSize: 16, color: Colors.black87),
                 ),
                 TextFormField(
                   controller: _prepTimeCtrl,
@@ -111,11 +113,12 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                 DropdownButtonFormField(
                   value: _difficulty,
                   decoration: const InputDecoration(labelText: 'Δυσκολία'),
-                  items: const ["Easy", "Medium", "Hard"]
-                      .map(
-                        (d) => DropdownMenuItem(value: d, child: Text(d)),
-                      )
-                      .toList(),
+                  items:
+                      const ["Easy", "Medium", "Hard"]
+                          .map(
+                            (d) => DropdownMenuItem(value: d, child: Text(d)),
+                          )
+                          .toList(),
                   onChanged: (val) => setState(() => _difficulty = val!),
                 ),
                 const SizedBox(height: 10),
