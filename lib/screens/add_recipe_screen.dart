@@ -100,7 +100,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                   controller: _descCtrl,
                   decoration: const InputDecoration(labelText: 'Περιγραφή'),
                   maxLines: 3,
-                  style: const TextStyle(fontSize: 16, color: Colors.black87),
                 ),
                 TextFormField(
                   controller: _prepTimeCtrl,
